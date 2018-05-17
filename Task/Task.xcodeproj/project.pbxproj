@@ -15,6 +15,7 @@
 		F9F35D5520ACA90A00BB0129 /* TasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F35D5420ACA90A00BB0129 /* TasksViewController.m */; };
 		F9F35D5820ACA94700BB0129 /* AddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F35D5720ACA94700BB0129 /* AddTaskViewController.m */; };
 		F9F35D5B20ACA96900BB0129 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F35D5A20ACA96900BB0129 /* InfoViewController.m */; };
+		F9F446BE20AD8C44003B4710 /* TaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F446BD20AD8C44003B4710 /* TaskView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		F9F35D5720ACA94700BB0129 /* AddTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddTaskViewController.m; sourceTree = "<group>"; };
 		F9F35D5920ACA96900BB0129 /* InfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		F9F35D5A20ACA96900BB0129 /* InfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		F9F446BC20AD8C44003B4710 /* TaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskView.h; sourceTree = "<group>"; };
+		F9F446BD20AD8C44003B4710 /* TaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +118,8 @@
 				AA2E611A20ACF051001CAFA1 /* Task */,
 				F9F35D3D20ACA82D00BB0129 /* AppDelegate.h */,
 				F9F35D3E20ACA82D00BB0129 /* AppDelegate.m */,
+				F9F446BC20AD8C44003B4710 /* TaskView.h */,
+				F9F446BD20AD8C44003B4710 /* TaskView.m */,
 				F9F35D4620ACA82D00BB0129 /* Assets.xcassets */,
 				F9F35D4820ACA82D00BB0129 /* LaunchScreen.storyboard */,
 				F9F35D4B20ACA82D00BB0129 /* Info.plist */,
@@ -195,6 +200,7 @@
 			files = (
 				F9F35D4D20ACA82D00BB0129 /* main.m in Sources */,
 				F9F35D5820ACA94700BB0129 /* AddTaskViewController.m in Sources */,
+				F9F446BE20AD8C44003B4710 /* TaskView.m in Sources */,
 				F9F35D3F20ACA82D00BB0129 /* AppDelegate.m in Sources */,
 				F9F35D5B20ACA96900BB0129 /* InfoViewController.m in Sources */,
 				AA2E611D20ACF06D001CAFA1 /* Task.m in Sources */,
