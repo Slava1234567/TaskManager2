@@ -18,6 +18,7 @@
     [super viewDidLoad];
     
     self.title = @"Info";
+    self.view.backgroundColor = UIColor.whiteColor;
 }
 
 - (void)didReceiveMemoryWarning {

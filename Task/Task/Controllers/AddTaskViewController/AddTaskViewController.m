@@ -18,19 +18,31 @@
     [super viewDidLoad];
     
     self.title = @"Add task";
+    self.view.backgroundColor = UIColor.whiteColor;
     
-    _titleTextField = [[UITextField alloc] initWithFrame:CGRectMake(50, 100, 250, 20)];
+    CGFloat width = 250;
+    _titleTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 100, 250, 20)];
     _titleTextField.borderStyle = UITextBorderStyleRoundedRect;
     _titleTextField.placeholder = @"Title";
     
     [self.view addSubview:_titleTextField];
     
-    _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(50, 170, 250, 150)];
+    _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 170, 250, 150)];
     _descriptionTextView.text = @"Description";
+    CALayer *descriptionTextViewLayer = _descriptionTextView.layer;
+    [descriptionTextViewLayer setCornerRadius:10];
+    [descriptionTextViewLayer setBorderWidth:1];
+    descriptionTextViewLayer.borderColor=[[UIColor lightGrayColor] CGColor];
+    
     [self.view addSubview:_descriptionTextView];
     
-    _detailsTextView = [[UITextView alloc] initWithFrame:CGRectMake(50, 370, 250, 150)];
+    _detailsTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 370, 250, 150)];
     _detailsTextView.text = @"Details";
+    CALayer *detailsTextViewLayer = _detailsTextView.layer;
+    [detailsTextViewLayer setCornerRadius:10];
+    [detailsTextViewLayer setBorderWidth:1];
+    detailsTextViewLayer.borderColor=[[UIColor lightGrayColor] CGColor];
+    
     [self.view addSubview:_detailsTextView];
     
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
