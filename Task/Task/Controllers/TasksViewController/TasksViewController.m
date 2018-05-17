@@ -58,7 +58,7 @@
     [self.taskView setValueInSubviewsTitle:task.title description:task.descript detail:task.details];
     [_tasksArray addObject:task];
     self.taskView.tag = self.tasksArray.count;
-    
+    NSLog(@"count ArrayTask - %lu",(unsigned long)self.tasksArray.count);
     
     
     for (Task *task in _tasksArray) {
@@ -78,6 +78,7 @@
     self.taskView.backgroundColor = [UIColor yellowColor];
     [self.taskView addSubViews];
     
+    
     UITapGestureRecognizer *tapGestore = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self.taskView addGestureRecognizer:tapGestore];
     
@@ -86,29 +87,36 @@
 
 - (void)handleTap:(UITapGestureRecognizer*) tapGestore {
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Edit" message:@"Do you want to edit your Task" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Choose action" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *edit = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
 //        [self.taskView removeFromSuperview];
 //        [self.tasksArray removeObjectAtIndex:tapGestore.view.tag];
-//        AddTaskViewController *vc = [[AddTaskViewController alloc] init];
-//        [self presentViewController:vc animated:true completion:nil];
-        NSLog(@"go go");
+      
+        NSLog(@"tag view - %ld, gesture tag - %ld", (long)self.taskView.tag,(long)tapGestore.view.tag);
     }];
-    [alertController addAction:actionNo];
-    [alertController addAction:actionYes];
+    
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // do del
+        [tapGestore.view removeFromSuperview];
+    }];
+    [alertController addAction:cancel];
+    [alertController addAction:edit];
+    [alertController addAction:delete];
     
     [self presentViewController:alertController animated:true completion:nil];
     
 }
+
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     if (self.taskView) {
         self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.taskView.frame.size.height * self.tasksArray.count);
-        [self.scrollView addSubview:self.taskView];
+    [self.scrollView addSubview:self.taskView];
     }
 }
 
