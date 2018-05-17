@@ -57,6 +57,7 @@
     [self createObjectTaskView];
     [self.taskView setValueInSubviewsTitle:task.title description:task.descript detail:task.details];
     [_tasksArray addObject:task];
+    self.taskView.tag = self.tasksArray.count;
     
     
     
@@ -73,10 +74,33 @@
                               self.scrollView.bounds.size.width,
                               height);
     
-    self.taskView = [[TaskView alloc] initWithFrame:frame];
-    
+    self.taskView = [[[TaskView alloc] initWithFrame:frame]autorelease];
     self.taskView.backgroundColor = [UIColor yellowColor];
     [self.taskView addSubViews];
+    
+    UITapGestureRecognizer *tapGestore = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self.taskView addGestureRecognizer:tapGestore];
+    
+    [tapGestore release];
+}
+
+- (void)handleTap:(UITapGestureRecognizer*) tapGestore {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Edit" message:@"Do you want to edit your Task" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+//        [self.taskView removeFromSuperview];
+//        [self.tasksArray removeObjectAtIndex:tapGestore.view.tag];
+//        AddTaskViewController *vc = [[AddTaskViewController alloc] init];
+//        [self presentViewController:vc animated:true completion:nil];
+        NSLog(@"go go");
+    }];
+    [alertController addAction:actionNo];
+    [alertController addAction:actionYes];
+    
+    [self presentViewController:alertController animated:true completion:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -95,6 +119,8 @@
 
 -(void)dealloc {
     [_tasksArray release];
+    [_taskView release];
+    [_scrollView release];
     [super dealloc];
 }
 

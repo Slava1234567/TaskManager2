@@ -38,9 +38,15 @@
                                                                    positionX - (border * 2) ,
                                                                    offSetPositionY * 3 - (border * 2))];
         _imageView.backgroundColor = [UIColor blueColor];
+        _imageView.layer.cornerRadius = 10;
+        _imageView.layer.masksToBounds = YES;
+        
+        
+    
     }
     return self;
 }
+
 
 
 - (void)addSubViews {
