@@ -10,7 +10,9 @@
 #import "AddTaskViewController.h"
 #import "InfoViewController.h"
 
-@interface TasksViewController ()
+@interface TasksViewController () <AddTaskViewControllerDelegate>
+
+@property (nonatomic, retain) NSMutableArray<Task *> *tasksArray;
 
 @end
 
@@ -19,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Tasks";
+    
+    _tasksArray = [[NSMutableArray alloc] init];
     
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addButttonTapped:)];
     
@@ -33,6 +37,8 @@
 
 - (void)addButttonTapped:(id)sender {
     AddTaskViewController *addTaskViewController = [[AddTaskViewController alloc] init];
+    addTaskViewController.delegate = self;
+    
     [self.navigationController pushViewController:addTaskViewController animated:true];
 }
 
@@ -41,9 +47,23 @@
     [self.navigationController pushViewController:addTaskViewController animated:true];
 }
 
+// AddTaskViewControllerDelegate protocol required method
+-(void)saveNewTask:(Task *)task {
+    [_tasksArray addObject:task];
+    
+    for (Task *task in _tasksArray) {
+        NSLog(@"Task title: %@", task.title);
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc {
+    [_tasksArray release];
+    [super dealloc];
 }
 
 /*
