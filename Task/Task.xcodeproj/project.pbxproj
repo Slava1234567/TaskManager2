@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA2E611D20ACF06D001CAFA1 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2E611C20ACF06D001CAFA1 /* Task.m */; };
 		F9F35D3F20ACA82D00BB0129 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F35D3E20ACA82D00BB0129 /* AppDelegate.m */; };
 		F9F35D4720ACA82D00BB0129 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9F35D4620ACA82D00BB0129 /* Assets.xcassets */; };
 		F9F35D4A20ACA82D00BB0129 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9F35D4820ACA82D00BB0129 /* LaunchScreen.storyboard */; };
@@ -14,9 +15,12 @@
 		F9F35D5520ACA90A00BB0129 /* TasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F35D5420ACA90A00BB0129 /* TasksViewController.m */; };
 		F9F35D5820ACA94700BB0129 /* AddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F35D5720ACA94700BB0129 /* AddTaskViewController.m */; };
 		F9F35D5B20ACA96900BB0129 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F35D5A20ACA96900BB0129 /* InfoViewController.m */; };
+		F9F446BE20AD8C44003B4710 /* TaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F446BD20AD8C44003B4710 /* TaskView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA2E611B20ACF06D001CAFA1 /* Task.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		AA2E611C20ACF06D001CAFA1 /* Task.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		F9F35D3A20ACA82D00BB0129 /* Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9F35D3D20ACA82D00BB0129 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F9F35D3E20ACA82D00BB0129 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -30,6 +34,8 @@
 		F9F35D5720ACA94700BB0129 /* AddTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddTaskViewController.m; sourceTree = "<group>"; };
 		F9F35D5920ACA96900BB0129 /* InfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		F9F35D5A20ACA96900BB0129 /* InfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		F9F446BC20AD8C44003B4710 /* TaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskView.h; sourceTree = "<group>"; };
+		F9F446BD20AD8C44003B4710 /* TaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +49,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA2E611620ACEFD4001CAFA1 /* AddTaskViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F9F35D5620ACA94700BB0129 /* AddTaskViewController.h */,
+				F9F35D5720ACA94700BB0129 /* AddTaskViewController.m */,
+			);
+			path = AddTaskViewController;
+			sourceTree = "<group>";
+		};
+		AA2E611720ACEFE3001CAFA1 /* TasksViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F9F35D5320ACA90A00BB0129 /* TasksViewController.h */,
+				F9F35D5420ACA90A00BB0129 /* TasksViewController.m */,
+			);
+			path = TasksViewController;
+			sourceTree = "<group>";
+		};
+		AA2E611820ACEFEF001CAFA1 /* InfoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F9F35D5920ACA96900BB0129 /* InfoViewController.h */,
+				F9F35D5A20ACA96900BB0129 /* InfoViewController.m */,
+			);
+			path = InfoViewController;
+			sourceTree = "<group>";
+		};
+		AA2E611920ACF034001CAFA1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AA2E611720ACEFE3001CAFA1 /* TasksViewController */,
+				AA2E611620ACEFD4001CAFA1 /* AddTaskViewController */,
+				AA2E611820ACEFEF001CAFA1 /* InfoViewController */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		AA2E611A20ACF051001CAFA1 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				AA2E611B20ACF06D001CAFA1 /* Task.h */,
+				AA2E611C20ACF06D001CAFA1 /* Task.m */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
 		F9F35D3120ACA82D00BB0129 = {
 			isa = PBXGroup;
 			children = (
@@ -62,14 +114,12 @@
 		F9F35D3C20ACA82D00BB0129 /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				AA2E611920ACF034001CAFA1 /* Controllers */,
+				AA2E611A20ACF051001CAFA1 /* Task */,
 				F9F35D3D20ACA82D00BB0129 /* AppDelegate.h */,
 				F9F35D3E20ACA82D00BB0129 /* AppDelegate.m */,
-				F9F35D5620ACA94700BB0129 /* AddTaskViewController.h */,
-				F9F35D5720ACA94700BB0129 /* AddTaskViewController.m */,
-				F9F35D5920ACA96900BB0129 /* InfoViewController.h */,
-				F9F35D5A20ACA96900BB0129 /* InfoViewController.m */,
-				F9F35D5320ACA90A00BB0129 /* TasksViewController.h */,
-				F9F35D5420ACA90A00BB0129 /* TasksViewController.m */,
+				F9F446BC20AD8C44003B4710 /* TaskView.h */,
+				F9F446BD20AD8C44003B4710 /* TaskView.m */,
 				F9F35D4620ACA82D00BB0129 /* Assets.xcassets */,
 				F9F35D4820ACA82D00BB0129 /* LaunchScreen.storyboard */,
 				F9F35D4B20ACA82D00BB0129 /* Info.plist */,
@@ -150,8 +200,10 @@
 			files = (
 				F9F35D4D20ACA82D00BB0129 /* main.m in Sources */,
 				F9F35D5820ACA94700BB0129 /* AddTaskViewController.m in Sources */,
+				F9F446BE20AD8C44003B4710 /* TaskView.m in Sources */,
 				F9F35D3F20ACA82D00BB0129 /* AppDelegate.m in Sources */,
 				F9F35D5B20ACA96900BB0129 /* InfoViewController.m in Sources */,
+				AA2E611D20ACF06D001CAFA1 /* Task.m in Sources */,
 				F9F35D5520ACA90A00BB0129 /* TasksViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,7 +231,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -234,7 +286,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
