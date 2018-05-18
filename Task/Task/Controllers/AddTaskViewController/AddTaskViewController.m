@@ -17,18 +17,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Add task";
     self.view.backgroundColor = UIColor.whiteColor;
     
-    CGFloat width = 250;
-    _titleTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 100, 250, 20)];
+    CGFloat width = self.view.bounds.size.width * 0.8;
+    _titleTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 100, width, 30)];
     _titleTextField.borderStyle = UITextBorderStyleRoundedRect;
-    _titleTextField.placeholder = @"Title";
     
     [self.view addSubview:_titleTextField];
     
-    _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 170, 250, 150)];
-    _descriptionTextView.text = @"Description";
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleTextField.frame.origin.x, 80, width, 20)];
+    titleLabel.text = @"Title:";
+    
+    [self.view addSubview:titleLabel];
+
+    _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 170, width, 100)];
     CALayer *descriptionTextViewLayer = _descriptionTextView.layer;
     [descriptionTextViewLayer setCornerRadius:10];
     [descriptionTextViewLayer setBorderWidth:1];
@@ -36,31 +38,61 @@
     
     [self.view addSubview:_descriptionTextView];
     
-    _detailsTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 370, 250, 150)];
-    _detailsTextView.text = @"Details";
+    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(_descriptionTextView.frame.origin.x, 150, width, 20)];
+    descriptionLabel.text = @"Description:";
+    
+    [self.view addSubview:descriptionLabel];
+    
+    _detailsTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 320, width, 100)];
     CALayer *detailsTextViewLayer = _detailsTextView.layer;
     [detailsTextViewLayer setCornerRadius:10];
     [detailsTextViewLayer setBorderWidth:1];
-    detailsTextViewLayer.borderColor=[[UIColor lightGrayColor] CGColor];
+    detailsTextViewLayer.borderColor = [[UIColor lightGrayColor] CGColor];
     
     [self.view addSubview:_detailsTextView];
+    
+    UILabel *detailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(_detailsTextView.frame.origin.x, 300, width, 20)];
+    detailsLabel.text = @"Details:";
+    
+    [self.view addSubview:detailsLabel];
     
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
     
     [self.navigationItem setRightBarButtonItem:rightButton];
     [rightButton release];
+    
+    if (_task) {
+        self.title = @"Edit task";
+        _titleTextField.text = _task.title;
+        _descriptionTextView.text = _task.descript;
+        _detailsTextView.text = _task.details;
+    } else {
+        self.title = @"Add task";
+    }
 
 }
 
 -(void)saveButtonTapped:(id)sender {
-    Task *task = [[Task alloc] init];
-    task.title = _titleTextField.text;
-    task.descript = _descriptionTextView.text;
-    task.details = _detailsTextView.text;
     
-    [self.delegate saveNewTask: task];
+    if (_task) {
+        _task.title = _titleTextField.text;
+        _task.descript = _descriptionTextView.text;
+        _task.details = _detailsTextView.text;
+        
+        [self.delegate updateTask];
+    } else {
+        Task *task = [[Task alloc] init];
+        task.title = _titleTextField.text;
+        task.descript = _descriptionTextView.text;
+        task.details = _detailsTextView.text;
+        
+        [self.delegate saveNewTask: task];
+        
+        [task release];
+    }
     
-    [task release];
+    [self.navigationController popViewControllerAnimated:true];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,6 +104,9 @@
     [_titleTextField release];
     [_descriptionTextView release];
     [_detailsTextView release];
+    
+    [_task release];
+    
     [super dealloc];
 }
 

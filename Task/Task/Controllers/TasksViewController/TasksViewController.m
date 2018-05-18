@@ -13,8 +13,9 @@
 
 @interface TasksViewController () <AddTaskViewControllerDelegate>
 
-@property (nonatomic, retain) NSMutableArray<Task *> *tasksArray;
-@property (nonatomic, retain) TaskView *taskView;
+@property (nonatomic, retain) NSMutableArray<Task *> *taskArray;
+@property (nonatomic, retain) NSMutableArray<TaskView *> *taskViewArray;
+//@property (nonatomic, retain) TaskView *taskView;
 
 @end
 
@@ -24,7 +25,7 @@
     [super viewDidLoad];
     self.title = @"Tasks";
     
-    _tasksArray = [[NSMutableArray alloc] init];
+    _taskArray = [[NSMutableArray alloc] init];
     
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addButttonTapped:)];
     
@@ -54,50 +55,87 @@
 
 // AddTaskViewControllerDelegate protocol required method
 -(void)saveNewTask:(Task *)task {
-    [self createObjectTaskView];
-    [self.taskView setValueInSubviewsTitle:task.title description:task.descript detail:task.details];
-    [_tasksArray addObject:task];
-    self.taskView.tag = self.tasksArray.count;
+    //[self createObjectTaskView];
+    //[self.taskView setValueInSubviewsTitle:task.title description:task.descript detail:task.details];
     
+    [_taskArray addObject:task];
+    [self reloadAllTasks];
+    //self.taskView.tag = self.taskArray.count;
     
-    
-    for (Task *task in _tasksArray) {
-        NSLog(@"Task title: %@, descr - %@", task.title,task.descript);
+    for (Task *task in _taskArray) {
+        NSLog(@"Task title: %@, descr - %@", task.title, task.descript);
     }
 }
 
-- (void)createObjectTaskView {
-    
-    CGFloat height = 200.0f;
-    CGRect frame = CGRectMake(self.scrollView.bounds.origin.x,
-                              height * self.tasksArray.count,
-                              self.scrollView.bounds.size.width,
-                              height);
-    
-    self.taskView = [[[TaskView alloc] initWithFrame:frame]autorelease];
-    self.taskView.backgroundColor = [UIColor yellowColor];
-    [self.taskView addSubViews];
-    
-    UITapGestureRecognizer *tapGestore = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [self.taskView addGestureRecognizer:tapGestore];
-    
-    [tapGestore release];
+-(void)reloadAllTasks {
+    [_taskArray enumerateObjectsUsingBlock:^(Task * _Nonnull task, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        CGFloat height = 200.0f;
+        CGRect frame = CGRectMake(self.scrollView.bounds.origin.x, height * idx, self.scrollView.bounds.size.width, height);
+        
+        TaskView *taskView = [[TaskView alloc] initWithFrame:frame];
+        [taskView addSubViews];
+        [taskView updateViewWithTask:_taskArray[idx]];
+        taskView.backgroundColor = UIColor.yellowColor;
+        taskView.tag = idx;
+        
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [taskView addGestureRecognizer:tapGesture];
+        [tapGesture release];
+        
+        [_scrollView addSubview:taskView];
+        
+        _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, height * _taskArray.count);
+        
+    }];
 }
 
-- (void)handleTap:(UITapGestureRecognizer*) tapGestore {
+-(void)updateTask {
+    [self reloadAllTasks];
+}
+
+//- (void)createObjectTaskView {
+//
+//    CGFloat height = 200.0f;
+//    CGRect frame = CGRectMake(self.scrollView.bounds.origin.x,
+//                              height * self.tasksArray.count,
+//                              self.scrollView.bounds.size.width,
+//                              height);
+//
+//    self.taskView = [[[TaskView alloc] initWithFrame:frame]autorelease];
+//    self.taskView.backgroundColor = [UIColor yellowColor];
+//    [self.taskView addSubViews];
+//
+//    UITapGestureRecognizer *tapGestore = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+//    [self.taskView addGestureRecognizer:tapGestore];
+//
+//    [tapGestore release];
+//}
+
+- (void)handleTap:(UITapGestureRecognizer*) tapGesture {
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Edit" message:@"Do you want to edit your Task" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Action" message:@"Choose action" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionDelete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-//        [self.taskView removeFromSuperview];
-//        [self.tasksArray removeObjectAtIndex:tapGestore.view.tag];
-//        AddTaskViewController *vc = [[AddTaskViewController alloc] init];
-//        [self presentViewController:vc animated:true completion:nil];
-        NSLog(@"go go");
+        [_taskArray removeObjectAtIndex:tapGesture.view.tag];
+        [self reloadAllTasks];
+        
     }];
-    [alertController addAction:actionNo];
-    [alertController addAction:actionYes];
+    
+    UIAlertAction *actionEdit = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        AddTaskViewController *addTaskViewController = [[AddTaskViewController alloc] init];
+        addTaskViewController.delegate = self;
+        addTaskViewController.task = _taskArray[tapGesture.view.tag];
+        
+        [self.navigationController pushViewController:addTaskViewController animated:true];
+    }];
+    
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertController addAction:actionDelete];
+    [alertController addAction:actionEdit];
+    [alertController addAction:actionCancel];
     
     [self presentViewController:alertController animated:true completion:nil];
     
@@ -106,10 +144,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.taskView) {
-        self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.taskView.frame.size.height * self.tasksArray.count);
-        [self.scrollView addSubview:self.taskView];
-    }
+//    if (self.taskView) {
+//        self.scrollView.contentSize
+//        [self.scrollView addSubview:self.taskView];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,8 +156,8 @@
 }
 
 -(void)dealloc {
-    [_tasksArray release];
-    [_taskView release];
+    [_taskArray release];
+    [_taskViewArray release];
     [_scrollView release];
     [super dealloc];
 }

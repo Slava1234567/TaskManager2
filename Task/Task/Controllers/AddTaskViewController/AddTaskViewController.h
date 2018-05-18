@@ -14,6 +14,7 @@
 @required
 
 -(void)saveNewTask: (Task*) task;
+-(void)updateTask;
 
 @end
 
@@ -22,6 +23,8 @@
 @property (nonatomic, retain) UITextField *titleTextField;
 @property (nonatomic, retain) UITextView *descriptionTextView;
 @property (nonatomic, retain) UITextView *detailsTextView;
+
+@property (nonatomic, retain) Task *task;
 
 @property (nonatomic, assign) id<AddTaskViewControllerDelegate> delegate;
 

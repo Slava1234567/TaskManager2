@@ -40,9 +40,7 @@
         _imageView.backgroundColor = [UIColor blueColor];
         _imageView.layer.cornerRadius = 10;
         _imageView.layer.masksToBounds = YES;
-        
-        
-    
+
     }
     return self;
 }
@@ -62,6 +60,12 @@
     self.descriptions.text = description;
     self.detail.text = detail;
    // self.imageView = imageView;
+}
+
+-(void)updateViewWithTask:(Task*) task {
+    self.title.text = task.title;
+    self.descriptions.text = task.descript;
+    self.detail.text = task.details;
 }
 
 @end

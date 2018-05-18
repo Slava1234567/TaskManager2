@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Task.h"
 
 @interface TaskView : UIView
 
@@ -17,5 +18,6 @@
 
 - (void)addSubViews;
 - (void)setValueInSubviewsTitle:(NSString*)title description:(NSString*)description detail:(NSString*)detail; //imageView:(UIImageView*)imageView;
+-(void)updateViewWithTask:(Task*) task;
 
 @end
