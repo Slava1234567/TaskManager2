@@ -14,8 +14,6 @@
 @interface TasksViewController () <AddTaskViewControllerDelegate>
 
 @property (nonatomic, retain) NSMutableArray<Task *> *taskArray;
-@property (nonatomic, retain) NSMutableArray<TaskView *> *taskViewArray;
-//@property (nonatomic, retain) TaskView *taskView;
 
 @end
 
@@ -54,63 +52,42 @@
 }
 
 // AddTaskViewControllerDelegate protocol required method
+
 -(void)saveNewTask:(Task *)task {
-    //[self createObjectTaskView];
-    //[self.taskView setValueInSubviewsTitle:task.title description:task.descript detail:task.details];
-    
     [_taskArray addObject:task];
     [self reloadAllTasks];
-    //self.taskView.tag = self.taskArray.count;
-    
-    for (Task *task in _taskArray) {
-        NSLog(@"Task title: %@, descr - %@", task.title, task.descript);
-    }
-}
-
--(void)reloadAllTasks {
-    [_taskArray enumerateObjectsUsingBlock:^(Task * _Nonnull task, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        CGFloat height = 200.0f;
-        CGRect frame = CGRectMake(self.scrollView.bounds.origin.x, height * idx, self.scrollView.bounds.size.width, height);
-        
-        TaskView *taskView = [[TaskView alloc] initWithFrame:frame];
-        [taskView addSubViews];
-        [taskView updateViewWithTask:_taskArray[idx]];
-        taskView.backgroundColor = UIColor.yellowColor;
-        taskView.tag = idx;
-        
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-        [taskView addGestureRecognizer:tapGesture];
-        [tapGesture release];
-        
-        [_scrollView addSubview:taskView];
-        
-        _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, height * _taskArray.count);
-        
-    }];
 }
 
 -(void)updateTask {
     [self reloadAllTasks];
 }
 
-//- (void)createObjectTaskView {
-//
-//    CGFloat height = 200.0f;
-//    CGRect frame = CGRectMake(self.scrollView.bounds.origin.x,
-//                              height * self.tasksArray.count,
-//                              self.scrollView.bounds.size.width,
-//                              height);
-//
-//    self.taskView = [[[TaskView alloc] initWithFrame:frame]autorelease];
-//    self.taskView.backgroundColor = [UIColor yellowColor];
-//    [self.taskView addSubViews];
-//
-//    UITapGestureRecognizer *tapGestore = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-//    [self.taskView addGestureRecognizer:tapGestore];
-//
-//    [tapGestore release];
-//}
+-(void)reloadAllTasks {
+    
+    // Remove all subvies from scrollView
+    [_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    // Create and add all subviews
+    [_taskArray enumerateObjectsUsingBlock:^(Task * _Nonnull task, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        CGFloat height = 130;
+        CGRect frame = CGRectMake(self.scrollView.bounds.origin.x, height * idx, self.scrollView.bounds.size.width, height);
+        
+        TaskView *taskView = [[TaskView alloc] initWithFrame:frame];
+        [taskView addSubViews];
+        taskView.tag = idx;
+        
+        [taskView updateViewWithTask:task];
+        
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [taskView addGestureRecognizer:tapGesture];
+        [tapGesture release];
+        
+        _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, height * _taskArray.count);
+        [_scrollView addSubview:taskView];
+        
+    }];
+}
 
 - (void)handleTap:(UITapGestureRecognizer*) tapGesture {
     
@@ -143,11 +120,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-//    if (self.taskView) {
-//        self.scrollView.contentSize
-//        [self.scrollView addSubview:self.taskView];
-//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -157,7 +129,6 @@
 
 -(void)dealloc {
     [_taskArray release];
-    [_taskViewArray release];
     [_scrollView release];
     [super dealloc];
 }

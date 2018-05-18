@@ -3,11 +3,11 @@
 //  Task
 //
 //  Created by Slava on 5/16/18.
-//  Copyright © 2018 Slava. All rights reserved.
+//  Copyright © 2018 Алексей. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "Task.h"
+@class Task;
 
 @protocol AddTaskViewControllerDelegate <NSObject>
 
@@ -20,12 +20,12 @@
 
 @interface AddTaskViewController : UIViewController
 
-@property (nonatomic, retain) UITextField *titleTextField;
-@property (nonatomic, retain) UITextView *descriptionTextView;
-@property (nonatomic, retain) UITextView *detailsTextView;
+@property (nonatomic, strong) UITextField *titleTextField;
+@property (nonatomic, strong) UITextView *descriptionTextView;
+@property (nonatomic, strong) UITextView *detailsTextView;
 
-@property (nonatomic, retain) Task *task;
+@property (nonatomic, strong) Task *task;
 
-@property (nonatomic, assign) id<AddTaskViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<AddTaskViewControllerDelegate> delegate;
 
 @end

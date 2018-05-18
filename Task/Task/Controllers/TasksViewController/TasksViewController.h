@@ -10,6 +10,6 @@
 
 @interface TasksViewController : UIViewController
 
-@property (nonatomic, retain) UIScrollView *scrollView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end

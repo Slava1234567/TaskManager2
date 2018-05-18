@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Task.h"
+@class Task;
 
 @interface TaskView : UIView
 
-@property (nonatomic,retain) UILabel* title;
-@property (nonatomic,retain) UILabel* descriptions;
-@property (nonatomic,retain) UILabel* detail;
-@property (nonatomic,retain) UIImageView* imageView;
+@property (nonatomic, strong) UILabel* title;
+@property (nonatomic, strong) UILabel* descriptions;
+@property (nonatomic, strong) UILabel* detail;
+@property (nonatomic, strong) UIView* imageView;
 
 - (void)addSubViews;
 - (void)setValueInSubviewsTitle:(NSString*)title description:(NSString*)description detail:(NSString*)detail; //imageView:(UIImageView*)imageView;

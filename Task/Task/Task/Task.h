@@ -10,8 +10,8 @@
 
 @interface Task : NSObject
 
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *descript;
-@property (nonatomic, retain) NSString *details;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *descript;
+@property (nonatomic, strong) NSString *details;
 
 @end

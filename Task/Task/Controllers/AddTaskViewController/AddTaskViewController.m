@@ -3,10 +3,11 @@
 //  Task
 //
 //  Created by Slava on 5/16/18.
-//  Copyright © 2018 Slava. All rights reserved.
+//  Copyright © 2018 Алексей. All rights reserved.
 //
 
 #import "AddTaskViewController.h"
+#import "Task.h"
 
 @interface AddTaskViewController ()
 
@@ -32,8 +33,8 @@
 
     _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 170, width, 100)];
     CALayer *descriptionTextViewLayer = _descriptionTextView.layer;
-    [descriptionTextViewLayer setCornerRadius:10];
-    [descriptionTextViewLayer setBorderWidth:1];
+    [descriptionTextViewLayer setCornerRadius:5];
+    [descriptionTextViewLayer setBorderWidth:0.3];
     descriptionTextViewLayer.borderColor=[[UIColor lightGrayColor] CGColor];
     
     [self.view addSubview:_descriptionTextView];
@@ -45,8 +46,8 @@
     
     _detailsTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 320, width, 100)];
     CALayer *detailsTextViewLayer = _detailsTextView.layer;
-    [detailsTextViewLayer setCornerRadius:10];
-    [detailsTextViewLayer setBorderWidth:1];
+    [detailsTextViewLayer setCornerRadius:5];
+    [detailsTextViewLayer setBorderWidth:0.4];
     detailsTextViewLayer.borderColor = [[UIColor lightGrayColor] CGColor];
     
     [self.view addSubview:_detailsTextView];
@@ -81,14 +82,12 @@
         
         [self.delegate updateTask];
     } else {
-        Task *task = [[Task alloc] init];
-        task.title = _titleTextField.text;
-        task.descript = _descriptionTextView.text;
-        task.details = _detailsTextView.text;
+        _task = [[Task alloc] init];
+        _task.title = _titleTextField.text;
+        _task.descript = _descriptionTextView.text;
+        _task.details = _detailsTextView.text;
         
-        [self.delegate saveNewTask: task];
-        
-        [task release];
+        [self.delegate saveNewTask: _task];
     }
     
     [self.navigationController popViewControllerAnimated:true];

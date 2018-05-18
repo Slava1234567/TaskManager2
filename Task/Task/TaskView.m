@@ -7,6 +7,7 @@
 //
 
 #import "TaskView.h"
+#import "Task.h"
 
 @implementation TaskView
 
@@ -22,24 +23,28 @@
                                                            self.bounds.origin.y + border ,
                                                            positionX * 2 - border,
                                                            offSetPositionY - (border * 2))];
-        _title.backgroundColor = [UIColor grayColor];
+        //_title.backgroundColor = [UIColor grayColor];
         _descriptions = [[UILabel alloc] initWithFrame:CGRectMake(positionX,
                                                                   offSetPositionY,
                                                                   positionX * 2 - border,
                                                                   offSetPositionY - border)];
-        _descriptions.backgroundColor = [UIColor grayColor];
+        //_descriptions.backgroundColor = [UIColor grayColor];
         _detail = [[UILabel alloc] initWithFrame:CGRectMake(positionX,
                                                             offSetPositionY * 2,
                                                             positionX * 2 - border,
                                                             offSetPositionY - border)];
-        _detail.backgroundColor = [UIColor grayColor];
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + border,
+        //_detail.backgroundColor = [UIColor grayColor];
+        _imageView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + border,
                                                                    self.bounds.origin.y + border,
-                                                                   positionX - (border * 2) ,
+                                                                   offSetPositionY * 3 - (border * 2),
                                                                    offSetPositionY * 3 - (border * 2))];
-        _imageView.backgroundColor = [UIColor blueColor];
+        _imageView.backgroundColor = [UIColor lightGrayColor];
         _imageView.layer.cornerRadius = 10;
         _imageView.layer.masksToBounds = YES;
+        
+        CALayer *layer = self.layer;
+        [layer setBorderWidth:0.4];
+        layer.borderColor=[[UIColor lightGrayColor] CGColor];
 
     }
     return self;
