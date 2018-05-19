@@ -41,7 +41,15 @@
         _imageView.layer.cornerRadius = 10;
         _imageView.layer.masksToBounds = YES;
         
-        
+//        _deleteView = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.bounds),
+//                                                                CGRectGetMinY(self.bounds),
+//                                                                0, self.bounds.size.height)];
+//        _deleteView.backgroundColor = [UIColor redColor];
+//        _deleteView.textAlignment = 1;
+//        _deleteView.text = @"Delete";
+//        _deleteView.font = [UIFont fontWithName:@"Courier-Bold" size:22];
+//        _deleteView.layer.cornerRadius = 10;
+//        _deleteView.layer.masksToBounds = YES;
     
     }
     return self;
@@ -64,4 +72,14 @@
    // self.imageView = imageView;
 }
 
+
+
 @end
+
+
+
+
+
+
+
+

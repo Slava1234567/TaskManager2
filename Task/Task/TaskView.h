@@ -14,8 +14,12 @@
 @property (nonatomic,retain) UILabel* descriptions;
 @property (nonatomic,retain) UILabel* detail;
 @property (nonatomic,retain) UIImageView* imageView;
+@property (nonatomic,retain) UILabel* deleteView;
 
 - (void)addSubViews;
 - (void)setValueInSubviewsTitle:(NSString*)title description:(NSString*)description detail:(NSString*)detail; //imageView:(UIImageView*)imageView;
+
+    
+
 
 @end

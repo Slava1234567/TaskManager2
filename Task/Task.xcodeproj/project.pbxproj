@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA2E611D20ACF06D001CAFA1 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2E611C20ACF06D001CAFA1 /* Task.m */; };
+		F9F0DEF720B02F3600454078 /* DeleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F0DEF620B02F3600454078 /* DeleteView.m */; };
 		F9F35D3F20ACA82D00BB0129 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F35D3E20ACA82D00BB0129 /* AppDelegate.m */; };
 		F9F35D4720ACA82D00BB0129 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9F35D4620ACA82D00BB0129 /* Assets.xcassets */; };
 		F9F35D4A20ACA82D00BB0129 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9F35D4820ACA82D00BB0129 /* LaunchScreen.storyboard */; };
@@ -21,6 +22,8 @@
 /* Begin PBXFileReference section */
 		AA2E611B20ACF06D001CAFA1 /* Task.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
 		AA2E611C20ACF06D001CAFA1 /* Task.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		F9F0DEF520B02F3600454078 /* DeleteView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteView.h; sourceTree = "<group>"; };
+		F9F0DEF620B02F3600454078 /* DeleteView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeleteView.m; sourceTree = "<group>"; };
 		F9F35D3A20ACA82D00BB0129 /* Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9F35D3D20ACA82D00BB0129 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F9F35D3E20ACA82D00BB0129 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 				F9F35D4820ACA82D00BB0129 /* LaunchScreen.storyboard */,
 				F9F35D4B20ACA82D00BB0129 /* Info.plist */,
 				F9F35D4C20ACA82D00BB0129 /* main.m */,
+				F9F0DEF520B02F3600454078 /* DeleteView.h */,
+				F9F0DEF620B02F3600454078 /* DeleteView.m */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 				F9F446BE20AD8C44003B4710 /* TaskView.m in Sources */,
 				F9F35D3F20ACA82D00BB0129 /* AppDelegate.m in Sources */,
 				F9F35D5B20ACA96900BB0129 /* InfoViewController.m in Sources */,
+				F9F0DEF720B02F3600454078 /* DeleteView.m in Sources */,
 				AA2E611D20ACF06D001CAFA1 /* Task.m in Sources */,
 				F9F35D5520ACA90A00BB0129 /* TasksViewController.m in Sources */,
 			);
