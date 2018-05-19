@@ -33,7 +33,51 @@
     _detailsTextView.text = @"Details";
     [self.view addSubview:_detailsTextView];
     
+    
+    self.myImage = [[[UIView alloc]  initWithFrame:CGRectMake(20, 525, self.view.bounds.size.width - 40, 210)] autorelease];
+    
+    UIView *pictuerForTaskOne = [[[UIView alloc]  initWithFrame:CGRectMake(20, 20, 75, 75)] autorelease];
+    UILabel* labelOne = [[[UILabel alloc] init] autorelease];
+    labelOne.text = @"📞";
+   // labelOne.font = [UIFont fontWithName:@"AppleColorEmoji" size:25.0];
+    
+   // pictuerForTaskOne.backgroundColor = [UIColor blackColor];
+    [pictuerForTaskOne addSubview:labelOne];
+
+    UIView *pictuerForTaskTwo = [[[UIView alloc]  initWithFrame:CGRectMake(105, 20, 75, 75)] autorelease];
+    pictuerForTaskTwo.backgroundColor = [UIColor yellowColor];
+    
+    UIView *pictuerForTaskThree = [[[UIView alloc]  initWithFrame:CGRectMake(190, 20, 75, 75)] autorelease];
+    pictuerForTaskThree.backgroundColor = [UIColor blackColor];
+    
+    UIView *pictuerForTaskFour = [[[UIView alloc]  initWithFrame:CGRectMake(275, 20, 75, 75)] autorelease];
+    pictuerForTaskFour.backgroundColor = [UIColor blackColor];
+    
+    UIView *pictuerForTaskFive = [[[UIView alloc]  initWithFrame:CGRectMake(20, 105, 75, 75)] autorelease];
+    pictuerForTaskFive.backgroundColor = [UIColor greenColor];
+    
+    UIView *pictuerForTaskSix = [[[UIView alloc]  initWithFrame:CGRectMake(105, 105, 75, 75)] autorelease];
+    pictuerForTaskSix.backgroundColor = [UIColor greenColor];
+    
+    UIView *pictuerForTaskSeven = [[[UIView alloc]  initWithFrame:CGRectMake(190, 105, 75, 75)] autorelease];
+    pictuerForTaskSeven.backgroundColor = [UIColor greenColor];
+    
+    UIView *pictuerForTaskEight = [[[UIView alloc]  initWithFrame:CGRectMake(275, 105, 75, 75)] autorelease];
+    pictuerForTaskEight.backgroundColor = [UIColor greenColor];
+    
+    [self.myImage addSubview:pictuerForTaskOne];
+    [self.myImage addSubview:pictuerForTaskTwo];
+    [self.myImage addSubview:pictuerForTaskFour];
+    [self.myImage addSubview:pictuerForTaskThree];
+    [self.myImage addSubview:pictuerForTaskFive];
+    [self.myImage addSubview:pictuerForTaskSix];
+    [self.myImage addSubview:pictuerForTaskSeven];
+    [self.myImage addSubview:pictuerForTaskEight];
+    
+    [self.view addSubview:self.myImage];
+    
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
+    
     
     [self.navigationItem setRightBarButtonItem:rightButton];
     [rightButton release];

@@ -22,6 +22,7 @@
 @property (nonatomic, retain) UITextField *titleTextField;
 @property (nonatomic, retain) UITextView *descriptionTextView;
 @property (nonatomic, retain) UITextView *detailsTextView;
+@property (nonatomic, retain) UIView *myImage;
 
 @property (nonatomic, assign) id<AddTaskViewControllerDelegate> delegate;
 

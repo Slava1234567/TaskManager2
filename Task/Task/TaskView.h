@@ -13,7 +13,7 @@
 @property (nonatomic,retain) UILabel* title;
 @property (nonatomic,retain) UILabel* descriptions;
 @property (nonatomic,retain) UILabel* detail;
-@property (nonatomic,retain) UIImageView* imageView;
+@property (nonatomic,retain) UIView* imageView;
 
 - (void)addSubViews;
 - (void)setValueInSubviewsTitle:(NSString*)title description:(NSString*)description detail:(NSString*)detail; //imageView:(UIImageView*)imageView;
