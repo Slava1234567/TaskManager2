@@ -7,6 +7,7 @@
 //
 
 #import "InfoViewController.h"
+#import "IconView.h"
 
 @interface InfoViewController ()
 
@@ -19,6 +20,14 @@
     
     self.title = @"Info";
     self.view.backgroundColor = UIColor.whiteColor;
+    
+    CGFloat width = 250;
+    CGFloat height = 250;
+    
+    IconView *iconView = [[IconView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, self.view.bounds.origin.x + height/3, width, height)];
+    
+    [self.view addSubview:iconView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
