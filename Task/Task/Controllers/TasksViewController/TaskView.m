@@ -34,13 +34,13 @@
                                                             positionX * 2 - border,
                                                             offSetPositionY - border)];
         //_detail.backgroundColor = [UIColor grayColor];
-        _imageView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + border,
-                                                                   self.bounds.origin.y + border,
-                                                                   offSetPositionY * 3 - (border * 2),
-                                                                   offSetPositionY * 3 - (border * 2))];
-        _imageView.backgroundColor = [UIColor lightGrayColor];
-        _imageView.layer.cornerRadius = 10;
-        _imageView.layer.masksToBounds = YES;
+//        _flagView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + border,
+//                                                                   self.bounds.origin.y + border,
+//                                                                   offSetPositionY * 3 - (border * 2),
+//                                                                   offSetPositionY * 3 - (border * 2))];
+        //_flagView.backgroundColor = [UIColor lightGrayColor];
+        //_flagView.layer.cornerRadius = 10;
+        //_flagView.layer.masksToBounds = YES;
         
         CALayer *layer = self.layer;
         [layer setBorderWidth:0.4];
@@ -56,7 +56,7 @@
     [self addSubview:self.title];
     [self addSubview:self.descriptions];
     [self addSubview:self.detail];
-    [self addSubview:self.imageView];
+    [self addSubview:self.flagView];
 }
 
 - (void)setValueInSubviewsTitle:(NSString*)title description:(NSString*)description detail:(NSString*)detail{ //imageView:(UIImageView*)imageView {
@@ -71,6 +71,13 @@
     self.title.text = task.title;
     self.descriptions.text = task.descript;
     self.detail.text = task.details;
+    self.flagView = task.flag;
+    
+    CGFloat offSetPositionY = self.frame.size.height / 3;
+    CGFloat border = 10.0f;
+    
+    [_flagView setFrame:CGRectMake(self.bounds.origin.x + border,self.bounds.origin.y + border, offSetPositionY * 3 - (border * 2), offSetPositionY * 3 - (border * 2))];
+    [self addSubview:_flagView];
 }
 
 @end

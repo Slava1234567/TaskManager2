@@ -2,11 +2,12 @@
 //  InfoViewController.m
 //  Task
 //
-//  Created by Slava on 5/16/18.
+//  Created by Алексей on 5/16/18.
 //  Copyright © 2018 Slava. All rights reserved.
 //
 
 #import "InfoViewController.h"
+#import "IconView.h"
 
 @interface InfoViewController ()
 
@@ -19,6 +20,21 @@
     
     self.title = @"Info";
     self.view.backgroundColor = UIColor.whiteColor;
+    
+    CGFloat width = 250;
+    CGFloat height = 250;
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 70, width, 50)];
+    titleLabel.text = @"Task Manager";
+    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:30];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [self.view addSubview:titleLabel];
+    
+    IconView *iconView = [[IconView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, self.view.bounds.origin.y + height/2, width, height)];
+    
+    [self.view addSubview:iconView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
