@@ -30,6 +30,7 @@
     
     _tasksArray = [[NSMutableArray alloc] init];
     _arrayTaskView = [[NSMutableArray alloc] init];
+   
     
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addButttonTapped:)];
     
@@ -77,8 +78,8 @@
     
     self.taskView.backgroundColor = [UIColor yellowColor];
     [self.taskView addSubViews];
-    
     [self.arrayTaskView addObject:self.taskView];
+    
     
     UITapGestureRecognizer *tapGestore = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                 action:@selector(handleTap:)];
@@ -89,28 +90,32 @@
     
     [tapGestore release];
     [self.taskView release];
+    
 }
 
 - (void) handlePan:(UIPanGestureRecognizer*)panGestore {
-    
-    if (panGestore.state == UIGestureRecognizerStateBegan ||
-        panGestore.state == UIGestureRecognizerStateChanged ||
-        panGestore.state == UIGestureRecognizerStateEnded) {
-        
-        self.deleteView = [[DeleteView redrawDeleteViewWithGestoreSuperView:panGestore] init];
-        NSMutableString *string = [NSMutableString stringWithString:@""];
-        CGRect rect = self.deleteView.frame;
-        [string appendFormat:@"%@", NSStringFromCGRect(rect)];
-        NSLog(@"%@", string);
-        NSLog(@"%ld", panGestore.view.tag);
-        
-        [self.arrayTaskView enumerateObjectsUsingBlock:^(TaskView* taskView, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (idx == panGestore.view.tag) {
-                [taskView addSubview:self.deleteView];
-                [self.deleteView release];
-            }
-        }];
+   
+        if (panGestore.state == UIGestureRecognizerStateBegan ||
+            panGestore.state == UIGestureRecognizerStateChanged ||
+            panGestore.state == UIGestureRecognizerStateEnded) {
+            
+            [self.deleteView removeFromSuperview];
+            self.deleteView = [[DeleteView redrawDeleteViewWithGestoreSuperView:panGestore] init];
+            UITapGestureRecognizer *tapDeleteGestore = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapDelete:)];
+            [self.deleteView addGestureRecognizer:tapDeleteGestore];
+            
+            TaskView *taskView = [self.arrayTaskView[panGestore.view.tag] retain];
+            [taskView addSubview:self.deleteView];
+            
+            [self.deleteView release];
+            [taskView release];
+            
     }
+}
+
+- (void) handleTapDelete:(UITapGestureRecognizer*) tapDeleteGestore {
+    NSLog(@"delete");
+   
 }
 
 - (void) handleTap:(UITapGestureRecognizer*) tapGestore {
@@ -152,7 +157,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     [self setScrollView];
 }
 
@@ -163,7 +168,7 @@
         for (int i = 0; i <= (self.tasksArray.count - 1); i++) {
             [self createObjectTaskView:i];
           
-            Task *taskContent = self.tasksArray[i];
+            Task *taskContent = [self.tasksArray[i] retain];
             [self.taskView setValueInSubviewsTitle:taskContent.title
                                        description:taskContent.descript
                                             detail:taskContent.details];
@@ -171,7 +176,7 @@
             self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width,
                                                      self.taskView.bounds.size.height * (i + 1));
             [self.scrollView addSubview:self.taskView];
-            
+            [taskContent release];
         }
     } else {
         [self deleteViewWihtAnimation:self.indexForAnimation];
@@ -182,6 +187,7 @@
     for (UIView* taskView in _arrayTaskView) {
         [taskView removeFromSuperview];
     }
+     [self.arrayTaskView removeAllObjects];
 }
 
 - (void)deleteViewWihtAnimation:(NSInteger)index {
@@ -206,6 +212,7 @@
     [_taskView release];
     [_scrollView release];
     [_arrayTaskView release];
+    [_deleteView release];
     [super dealloc];
 }
 

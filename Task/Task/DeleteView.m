@@ -21,9 +21,10 @@
         _deleteLabel.font = [UIFont fontWithName:@"Courier-Bold" size:22];
         _deleteLabel.layer.cornerRadius = 10;
         _deleteLabel.layer.masksToBounds = YES;
+        _deleteLabel.layer.borderColor = [UIColor blackColor].CGColor;
+        _deleteLabel.layer.borderWidth = 1.5;
         
         [self addSubview:_deleteLabel];
-        [_deleteLabel release];
     }
     return self;
 }
@@ -33,7 +34,6 @@
 + (DeleteView*)redrawDeleteViewWithGestoreSuperView:(UIPanGestureRecognizer*)panGestore {
     
     DeleteView* deleteView = [[DeleteView alloc] init];
-  
     
     CGFloat widht = 0;
     CGFloat positionX = CGRectGetMaxX(panGestore.view.bounds);
@@ -42,9 +42,6 @@
                               CGRectGetMinY(panGestore.view.bounds),
                               widht, panGestore.view.bounds.size.height);
 
-    
-  
-    
     CGPoint translation = CGPointMake(0, 0);
     
     switch (panGestore.state) {
@@ -60,10 +57,6 @@
                 frame.size.width = widht;
                 frame.origin.x = positionX;
                 deleteView.frame = frame;
-              
-                NSLog(@"widht - %f",widht);
-                
-                
             }
             break;
         case UIGestureRecognizerStateEnded:
@@ -72,7 +65,6 @@
             frame.size.width = widht + 10;
             frame.origin.x = positionX;
             deleteView.frame = frame;
-          
         default: break;
     }
     return  deleteView;
