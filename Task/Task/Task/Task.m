@@ -10,4 +10,13 @@
 
 @implementation Task
 
+-(void)dealloc {
+    [_title release];
+    [_descript release];
+    [_details release];
+    [_flag release];
+    
+    [super dealloc];
+}
+
 @end

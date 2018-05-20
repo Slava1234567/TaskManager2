@@ -10,10 +10,12 @@
 #import "AddTaskViewController.h"
 #import "InfoViewController.h"
 #import "TaskView.h"
+#import "Task.h"
 
 @interface TasksViewController () <AddTaskViewControllerDelegate>
 
-@property (nonatomic, retain) NSMutableArray<Task *> *taskArray;
+@property (nonatomic, strong) NSMutableArray<Task *> *taskArray;
+@property (nonatomic, strong) NSMutableArray<TaskView *> *taskViewArray;
 
 @end
 
@@ -24,6 +26,7 @@
     self.title = @"Tasks";
     
     _taskArray = [[NSMutableArray alloc] init];
+    _taskViewArray = [[NSMutableArray alloc] init];
     
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addButttonTapped:)];
     
@@ -54,39 +57,44 @@
 // AddTaskViewControllerDelegate protocol required method
 
 -(void)saveNewTask:(Task *)task {
+    task.tag = _taskArray.count;
     [_taskArray addObject:task];
-    [self reloadAllTasks];
+    
+    CGFloat height = 130;
+    CGRect frame = CGRectMake(self.scrollView.bounds.origin.x, height * _taskViewArray.count, self.scrollView.bounds.size.width, height);
+    
+    TaskView *taskView = [[TaskView alloc] initWithFrame:frame];
+    
+    [taskView addSubViews];
+    taskView.tag = _taskViewArray.count;
+    [taskView updateViewWithTask:task];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [taskView addGestureRecognizer:tapGesture];
+    [tapGesture release];
+    
+    [_taskViewArray addObject:taskView];
+    
+    _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, height * _taskArray.count);
+    [_scrollView addSubview:_taskViewArray.lastObject];
+    
+    [taskView release];
 }
 
--(void)updateTask {
-    [self reloadAllTasks];
+-(void)updateTask:(Task *) task {
+    [_taskViewArray[task.tag] updateViewWithTask:task];
 }
 
--(void)reloadAllTasks {
+-(void)reloadTasksFromRow:(NSInteger) row {
+    CGFloat height = 130;
     
-    // Remove all subvies from scrollView
-    [_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    // Create and add all subviews
-    [_taskArray enumerateObjectsUsingBlock:^(Task * _Nonnull task, NSUInteger idx, BOOL * _Nonnull stop) {
+    for (NSInteger i = row; i < _taskViewArray.count; i++) {
+        [_taskViewArray[i] setFrame:CGRectMake(self.scrollView.bounds.origin.x, height * i, self.scrollView.bounds.size.width, height)];
         
-        CGFloat height = 130;
-        CGRect frame = CGRectMake(self.scrollView.bounds.origin.x, height * idx, self.scrollView.bounds.size.width, height);
-        
-        TaskView *taskView = [[TaskView alloc] initWithFrame:frame];
-        [taskView addSubViews];
-        taskView.tag = idx;
-        
-        [taskView updateViewWithTask:task];
-        
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-        [taskView addGestureRecognizer:tapGesture];
-        [tapGesture release];
-        
-        _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, height * _taskArray.count);
-        [_scrollView addSubview:taskView];
-        
-    }];
+        _taskArray[i].tag = i;
+        _taskViewArray[i].tag = i;
+        _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, height * _taskViewArray.count);
+    }
 }
 
 - (void)handleTap:(UITapGestureRecognizer*) tapGesture {
@@ -95,7 +103,10 @@
     UIAlertAction *actionDelete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         [_taskArray removeObjectAtIndex:tapGesture.view.tag];
-        [self reloadAllTasks];
+        [_taskViewArray[tapGesture.view.tag] removeFromSuperview];
+        [_taskViewArray removeObjectAtIndex:tapGesture.view.tag];
+        
+        [self reloadTasksFromRow:tapGesture.view.tag];
         
     }];
     
@@ -129,18 +140,10 @@
 
 -(void)dealloc {
     [_taskArray release];
+    [_taskViewArray release];
     [_scrollView release];
+    
     [super dealloc];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
