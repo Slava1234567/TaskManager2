@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0B5A5C20B04F84005D3A00 /* IconView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0B5A5B20B04F84005D3A00 /* IconView.m */; };
+		AA0B5A6220B0EE8E005D3A00 /* HomeFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0B5A6120B0EE8E005D3A00 /* HomeFlag.m */; };
+		AA0B5A6520B0F58B005D3A00 /* WorkFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0B5A6420B0F58B005D3A00 /* WorkFlag.m */; };
+		AA0B5A6820B16F0F005D3A00 /* FamilyFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0B5A6720B16F0F005D3A00 /* FamilyFlag.m */; };
+		AA0B5A6B20B17861005D3A00 /* ShopFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0B5A6A20B17861005D3A00 /* ShopFlag.m */; };
+		AA0B5A7120B1CB82005D3A00 /* DefaultFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0B5A7020B1CB82005D3A00 /* DefaultFlag.m */; };
 		AA2E611D20ACF06D001CAFA1 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2E611C20ACF06D001CAFA1 /* Task.m */; };
 		F9F0DEF720B02F3600454078 /* DeleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F0DEF620B02F3600454078 /* DeleteView.m */; };
 		F9F35D3F20ACA82D00BB0129 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F35D3E20ACA82D00BB0129 /* AppDelegate.m */; };
@@ -20,6 +26,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA0B5A5A20B04F84005D3A00 /* IconView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IconView.h; sourceTree = "<group>"; };
+		AA0B5A5B20B04F84005D3A00 /* IconView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IconView.m; sourceTree = "<group>"; };
+		AA0B5A6020B0EE8E005D3A00 /* HomeFlag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeFlag.h; sourceTree = "<group>"; };
+		AA0B5A6120B0EE8E005D3A00 /* HomeFlag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeFlag.m; sourceTree = "<group>"; };
+		AA0B5A6320B0F58B005D3A00 /* WorkFlag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlag.h; sourceTree = "<group>"; };
+		AA0B5A6420B0F58B005D3A00 /* WorkFlag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlag.m; sourceTree = "<group>"; };
+		AA0B5A6620B16F0F005D3A00 /* FamilyFlag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FamilyFlag.h; sourceTree = "<group>"; };
+		AA0B5A6720B16F0F005D3A00 /* FamilyFlag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FamilyFlag.m; sourceTree = "<group>"; };
+		AA0B5A6920B17861005D3A00 /* ShopFlag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopFlag.h; sourceTree = "<group>"; };
+		AA0B5A6A20B17861005D3A00 /* ShopFlag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopFlag.m; sourceTree = "<group>"; };
+		AA0B5A6F20B1CB82005D3A00 /* DefaultFlag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultFlag.h; sourceTree = "<group>"; };
+		AA0B5A7020B1CB82005D3A00 /* DefaultFlag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultFlag.m; sourceTree = "<group>"; };
 		AA2E611B20ACF06D001CAFA1 /* Task.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
 		AA2E611C20ACF06D001CAFA1 /* Task.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		F9F0DEF520B02F3600454078 /* DeleteView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteView.h; sourceTree = "<group>"; };
@@ -52,6 +70,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA0B5A5F20B0ED6E005D3A00 /* Task flags */ = {
+			isa = PBXGroup;
+			children = (
+				AA0B5A6020B0EE8E005D3A00 /* HomeFlag.h */,
+				AA0B5A6120B0EE8E005D3A00 /* HomeFlag.m */,
+				AA0B5A6320B0F58B005D3A00 /* WorkFlag.h */,
+				AA0B5A6420B0F58B005D3A00 /* WorkFlag.m */,
+				AA0B5A6620B16F0F005D3A00 /* FamilyFlag.h */,
+				AA0B5A6720B16F0F005D3A00 /* FamilyFlag.m */,
+				AA0B5A6920B17861005D3A00 /* ShopFlag.h */,
+				AA0B5A6A20B17861005D3A00 /* ShopFlag.m */,
+				AA0B5A6F20B1CB82005D3A00 /* DefaultFlag.h */,
+				AA0B5A7020B1CB82005D3A00 /* DefaultFlag.m */,
+			);
+			path = "Task flags";
+			sourceTree = "<group>";
+		};
 		AA2E611620ACEFD4001CAFA1 /* AddTaskViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +101,8 @@
 			children = (
 				F9F35D5320ACA90A00BB0129 /* TasksViewController.h */,
 				F9F35D5420ACA90A00BB0129 /* TasksViewController.m */,
+				F9F446BC20AD8C44003B4710 /* TaskView.h */,
+				F9F446BD20AD8C44003B4710 /* TaskView.m */,
 			);
 			path = TasksViewController;
 			sourceTree = "<group>";
@@ -75,6 +112,8 @@
 			children = (
 				F9F35D5920ACA96900BB0129 /* InfoViewController.h */,
 				F9F35D5A20ACA96900BB0129 /* InfoViewController.m */,
+				AA0B5A5A20B04F84005D3A00 /* IconView.h */,
+				AA0B5A5B20B04F84005D3A00 /* IconView.m */,
 			);
 			path = InfoViewController;
 			sourceTree = "<group>";
@@ -119,10 +158,9 @@
 			children = (
 				AA2E611920ACF034001CAFA1 /* Controllers */,
 				AA2E611A20ACF051001CAFA1 /* Task */,
+				AA0B5A5F20B0ED6E005D3A00 /* Task flags */,
 				F9F35D3D20ACA82D00BB0129 /* AppDelegate.h */,
 				F9F35D3E20ACA82D00BB0129 /* AppDelegate.m */,
-				F9F446BC20AD8C44003B4710 /* TaskView.h */,
-				F9F446BD20AD8C44003B4710 /* TaskView.m */,
 				F9F35D4620ACA82D00BB0129 /* Assets.xcassets */,
 				F9F35D4820ACA82D00BB0129 /* LaunchScreen.storyboard */,
 				F9F35D4B20ACA82D00BB0129 /* Info.plist */,
@@ -159,7 +197,7 @@
 		F9F35D3220ACA82D00BB0129 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Slava;
 				TargetAttributes = {
 					F9F35D3920ACA82D00BB0129 = {
@@ -204,6 +242,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9F35D4D20ACA82D00BB0129 /* main.m in Sources */,
+				AA0B5A6B20B17861005D3A00 /* ShopFlag.m in Sources */,
+				AA0B5A5C20B04F84005D3A00 /* IconView.m in Sources */,
+				AA0B5A6520B0F58B005D3A00 /* WorkFlag.m in Sources */,
+				AA0B5A7120B1CB82005D3A00 /* DefaultFlag.m in Sources */,
+				AA0B5A6220B0EE8E005D3A00 /* HomeFlag.m in Sources */,
+				AA0B5A6820B16F0F005D3A00 /* FamilyFlag.m in Sources */,
 				F9F35D5820ACA94700BB0129 /* AddTaskViewController.m in Sources */,
 				F9F446BE20AD8C44003B4710 /* TaskView.m in Sources */,
 				F9F35D3F20ACA82D00BB0129 /* AppDelegate.m in Sources */,
@@ -242,6 +286,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -249,6 +294,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -297,6 +343,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -304,6 +351,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -337,6 +385,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Task/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -351,6 +400,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Task/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
