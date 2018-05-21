@@ -32,7 +32,7 @@
 - (void)loadView {////self.view as scrollView
     CGRect fullScreenRect = [[UIScreen mainScreen] bounds];
     _scrollView = [[UIScrollView alloc] initWithFrame:fullScreenRect];
-    _scrollView.contentSize = CGSizeMake(320,758);
+    _scrollView.contentSize = CGSizeMake(fullScreenRect.size.width,fullScreenRect.size.height);
     self.view = _scrollView;
 }
 
