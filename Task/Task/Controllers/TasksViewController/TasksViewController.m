@@ -12,7 +12,7 @@
 #import "TaskView.h"
 #import "Task.h"
 
-@interface TasksViewController () <AddTaskViewControllerDelegate>
+@interface TasksViewController () <AddTaskViewControllerDelegate, TaskViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray<Task *> *taskArray;
 @property (nonatomic, strong) NSMutableArray<TaskView *> *taskViewArray;
@@ -69,9 +69,7 @@
     taskView.tag = _taskViewArray.count;
     [taskView updateViewWithTask:task];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [taskView addGestureRecognizer:tapGesture];
-    [tapGesture release];
+    taskView.delegate = self;
     
     [_taskViewArray addObject:taskView];
     
@@ -95,6 +93,18 @@
         _taskViewArray[i].tag = i;
         _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, height * _taskViewArray.count);
     }
+}
+
+-(void)taskViewDidRemoveFromSuperview: (TaskView*) taskView {
+    [_taskArray removeObjectAtIndex:taskView.tag];
+    [_taskViewArray removeObjectAtIndex:taskView.tag];
+    
+    [self reloadTasksFromRow:taskView.tag];
+}
+
+- (void)handleSwipe:(UISwipeGestureRecognizer*) gestureRecognizer {
+    CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
+    NSLog(@"Point x = %f, y =%f", point.x, point.y);
 }
 
 - (void)handleTap:(UITapGestureRecognizer*) tapGesture {

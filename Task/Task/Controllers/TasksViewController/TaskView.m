@@ -9,6 +9,14 @@
 #import "TaskView.h"
 #import "Task.h"
 
+@interface TaskView()
+
+@property (nonatomic, assign) CGPoint locationBounds;
+@property (nonatomic, strong) UIView *deleteView;
+@property (nonatomic, strong) UILabel *deleteLabel;
+
+@end
+
 @implementation TaskView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -45,6 +53,19 @@
         CALayer *layer = self.layer;
         [layer setBorderWidth:0.4];
         layer.borderColor=[[UIColor lightGrayColor] CGColor];
+        
+        _deleteView = [[UIView alloc] init];
+        _deleteView.backgroundColor = [UIColor colorWithRed:211.0/255.0 green:70.0/255.0 blue:73.0/255.0 alpha:1];
+        
+        _deleteLabel = [[UILabel alloc] init];
+        _deleteLabel.text = @"Delete";
+        _deleteLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:25];
+        _deleteLabel.textColor = UIColor.whiteColor;
+        _deleteLabel.textAlignment = NSTextAlignmentCenter;
+        
+        [_deleteView addSubview:_deleteLabel];
+        
+        [self addSubview:_deleteView];
 
     }
     return self;
@@ -78,6 +99,36 @@
     
     [_flagView setFrame:CGRectMake(self.bounds.origin.x + border,self.bounds.origin.y + border, offSetPositionY * 3 - (border * 2), offSetPositionY * 3 - (border * 2))];
     [self addSubview:_flagView];
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    _locationBounds = [[touches anyObject] locationInView:self];
+}
+
+-(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    CGPoint locationFrame = [[touches anyObject] locationInView:self.superview];
+    CGFloat offset = _locationBounds.x + self.bounds.size.width;
+    CGFloat labelWidth = self.bounds.size.width * 0.3;
+    
+    [self setFrame:CGRectMake(locationFrame.x - _locationBounds.x, self.frame.origin.y, self.bounds.size.width, self.bounds.size.height)];
+    [_deleteView setFrame:CGRectMake(offset, self.bounds.origin.y, self.bounds.size.width - offset, self.bounds.size.height)];
+    [_deleteLabel setFrame:CGRectMake(_deleteView.bounds.size.width/2 - labelWidth/2, _deleteView.bounds.size.height/2 - 10, labelWidth, 20)];
+    
+    if (locationFrame.x - _locationBounds.x + self.bounds.size.width < self.bounds.size.width/4) {
+        [self removeFromSuperview];
+        [_delegate taskViewDidRemoveFromSuperview: self];
+    }
+    
+}
+
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self setFrame:CGRectMake(0, self.frame.origin.y, self.bounds.size.width, self.bounds.size.height)];
+    [_deleteView setFrame:CGRectMake(self.bounds.size.width, self.frame.origin.y, 0, self.bounds.size.height)];
+}
+
+-(void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self setFrame:CGRectMake(0, self.frame.origin.y, self.bounds.size.width, self.bounds.size.height)];
 }
 
 @end
