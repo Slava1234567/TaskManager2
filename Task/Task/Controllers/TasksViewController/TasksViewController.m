@@ -122,31 +122,14 @@
 }
 
 - (void) handleTapDelete:(UITapGestureRecognizer*)tapDeleteGestore {
-    
+
    
-    NSLog(@"tag tapGestureDelete - %ld",tapDeleteGestore.view.tag);
-    [UIView animateWithDuration:1 animations:^{
-        
-        [_taskViewArray[tapDeleteGestore.view.tag] setFrame:CGRectMake(CGRectGetMaxX(_taskViewArray[tapDeleteGestore.view.tag].bounds),
-                                CGRectGetMinY(_taskViewArray[tapDeleteGestore.view.tag].bounds),
-                                0, _taskViewArray[tapDeleteGestore.view.tag].bounds.size.height)];
-        
-    }];
-           [ NSTimer timerWithTimeInterval:2 repeats:false block:^(NSTimer * _Nonnull timer) {
                 [_taskArray removeObjectAtIndex:tapDeleteGestore.view.tag];
                [_taskViewArray[tapDeleteGestore.view.tag] removeFromSuperview];
                 [_taskViewArray removeObjectAtIndex:tapDeleteGestore.view.tag];
                
                [self reloadTasksFromRow:tapDeleteGestore.view.tag];
-           
-            }];
-
     
-   
-    
-    
-    
-
 }
 
 -(void)updateTask:(Task *) task {
