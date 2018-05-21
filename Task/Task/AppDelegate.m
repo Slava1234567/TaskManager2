@@ -18,13 +18,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = UIColor.whiteColor;
     
-    TasksViewController *rootViewController = [[TasksViewController alloc] init];
+    TasksViewController *rootViewController = [[[TasksViewController alloc] init] autorelease];
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: rootViewController];
-    
+    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController: rootViewController] autorelease];    
     self.window.rootViewController = navigationController;
     
     [self.window makeKeyAndVisible];
@@ -59,5 +58,9 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(void)dealloc{
+    [_window release];
+    [super dealloc];
+}
 
 @end
