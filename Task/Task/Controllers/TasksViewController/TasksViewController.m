@@ -87,9 +87,9 @@
     [taskView addGestureRecognizer:doubleTapGesture];
     [doubleTapGesture release];
     
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-    [taskView addGestureRecognizer:panGesture];
-    [panGesture release];
+//    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+//    [taskView addGestureRecognizer:panGesture];
+//    [panGesture release];
     
     [_taskViewArray addObject:taskView];
     
@@ -122,6 +122,7 @@
 }
 
 - (void) handleTapDelete:(UITapGestureRecognizer*) tapDeleteGestore {
+    
     
     [_taskArray removeObjectAtIndex:tapDeleteGestore.view.tag];
     [_taskViewArray[tapDeleteGestore.view.tag] removeFromSuperview];
@@ -174,7 +175,27 @@
 
 - (void)handleTap:(UITapGestureRecognizer*) tapGesture {
     
-    [self.deleteView removeFromSuperview];
+    for (TaskView *taskView in self.taskViewArray) {
+        for (UIGestureRecognizer* gestureRecognizer in taskView.gestureRecognizers) {
+            if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+                [taskView removeGestureRecognizer:gestureRecognizer];
+            }
+        }
+            taskView.layer.borderWidth = 0.4;
+    }
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    
+    if (self.deleteView) {
+        [self.deleteView removeFromSuperview];
+        self.deleteView = nil;
+        tapGesture.view.layer.borderWidth = 0.4;
+        
+    } else {
+        tapGesture.view.layer.borderWidth = 2;
+        [tapGesture.view addGestureRecognizer:panGesture];
+        [panGesture release];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
