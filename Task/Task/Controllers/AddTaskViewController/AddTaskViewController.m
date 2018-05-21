@@ -97,7 +97,7 @@
     CGFloat width = self.view.bounds.size.width * 0.8;
     CGFloat height = self.view.bounds.size.height;
     
-    self.selectedFlagView = [[DefaultFlag alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/8, height/7.4, width/4, width/4)];
+    self.selectedFlagView = [[[DefaultFlag alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/8, height/7.4, width/4, width/4)] autorelease];
     [self.view addSubview:_selectedFlagView];
     
     _titleTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, height/3.3, width, height/22.2)];
@@ -155,7 +155,7 @@
         _detailsTextView.text = _task.details;
         
         [_selectedFlagView removeFromSuperview];
-        self.selectedFlagView = [[_task.flag.class alloc] initWithFrame:_selectedFlagView.frame];
+        self.selectedFlagView = [[[_task.flag.class alloc] initWithFrame:_selectedFlagView.frame] autorelease];
         [self.view addSubview:_selectedFlagView];
     } else {
         self.title = @"Add task";
@@ -198,7 +198,7 @@
     [tapGesture.view.layer setBorderWidth:3];
     
     [_selectedFlagView removeFromSuperview];
-    self.selectedFlagView = [[tapGesture.view.class alloc] initWithFrame:_selectedFlagView.frame];
+    self.selectedFlagView = [[[tapGesture.view.class alloc] initWithFrame:_selectedFlagView.frame] autorelease];
     [self.view addSubview:_selectedFlagView];
 }
 
@@ -208,7 +208,7 @@
         _task.title = _titleTextField.text;
         _task.descript = _descriptionTextView.text;
         _task.details = _detailsTextView.text;
-        _task.flag = [[_selectedFlagView.class alloc] init];
+        _task.flag = [[[_selectedFlagView.class alloc] init] autorelease];
         
         [self.delegate updateTask: _task];
     } else {
@@ -216,7 +216,7 @@
         _task.title = _titleTextField.text;
         _task.descript = _descriptionTextView.text;
         _task.details = _detailsTextView.text;
-        _task.flag = [[_selectedFlagView.class alloc] init];
+        _task.flag = [[[_selectedFlagView.class alloc] init] autorelease];
         
         [self.delegate saveNewTask: _task];
     }
