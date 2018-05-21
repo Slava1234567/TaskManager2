@@ -16,6 +16,7 @@
 
 @interface AddTaskViewController ()
 
+@property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic, strong) UITextField *titleTextField;
 @property (nonatomic, strong) UITextView *descriptionTextView;
 @property (nonatomic, strong) UITextView *detailsTextView;
@@ -27,49 +28,118 @@
 
 @implementation AddTaskViewController
 
+////////////////////////////////////////Bahaviour of keyboard////////////////////////////////////////////////////////
+- (void)loadView {////self.view as scrollView
+    CGRect fullScreenRect = [[UIScreen mainScreen] bounds];
+    _scrollView = [[UIScrollView alloc] initWithFrame:fullScreenRect];
+    _scrollView.contentSize = CGSizeMake(fullScreenRect.size.width, fullScreenRect.size.height);
+    self.view = _scrollView;
+}
+
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    self.scrollView.contentInset = contentInsets;
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+    
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    
+    //    if (_detailsTextView.isFirstResponder) {
+    [self.scrollView scrollRectToVisible:_detailsTextView.frame animated:YES];
+    //   }
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.scrollView.contentInset = contentInsets;
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void) hideKeyboard {
+    [_titleTextField resignFirstResponder];
+    [_descriptionTextView resignFirstResponder];
+    [_detailsTextView resignFirstResponder];
+}
+
+//////////////////////////////////////END//////////////////////////////////////////////////////////
+
+
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
+    //////////////////////////////////////gestureRecognizer//////////////////////////////////////////////////////////
+    UITapGestureRecognizer *gestureRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)] autorelease];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    [self registerForKeyboardNotifications];
+    //////////////////////////////////////////END//////////////////////////////////////////////////////
     self.view.backgroundColor = UIColor.whiteColor;
-    
     CGFloat width = self.view.bounds.size.width * 0.8;
+    CGFloat height = self.view.bounds.size.height;
     
-    _selectedFlagView = [[DefaultFlag alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - 40, 90, 80, 80)];
+    self.selectedFlagView = [[DefaultFlag alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/8, height/7.4, width/4, width/4)];
     [self.view addSubview:_selectedFlagView];
     
-    _titleTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 200, width, 30)];
+    _titleTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, height/3.3, width, height/22.2)];
     _titleTextField.borderStyle = UITextBorderStyleRoundedRect;
     
     [self.view addSubview:_titleTextField];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleTextField.frame.origin.x, 180, width, 20)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleTextField.frame.origin.x, height/3.7, width, height/33.3)];
     titleLabel.text = @"Title:";
     
     [self.view addSubview:titleLabel];
-
-    _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 270, width, 100)];
+    [titleLabel release];
+    
+    _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, height/2.4, width, height/6.7)];
     [_descriptionTextView.layer setCornerRadius:5];
     [_descriptionTextView.layer setBorderWidth:0.3];
     _descriptionTextView.layer.borderColor=[[UIColor lightGrayColor] CGColor];
     
+    [_descriptionTextView setFont:[UIFont fontWithName:@"Arial" size:17]];
+    
     [self.view addSubview:_descriptionTextView];
     
-    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(_descriptionTextView.frame.origin.x, 250, width, 20)];
+    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(_descriptionTextView.frame.origin.x, height/2.6, width, height/33.3)];
     descriptionLabel.text = @"Description:";
     
     [self.view addSubview:descriptionLabel];
+    [descriptionLabel release];
     
-    _detailsTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 420, width, 100)];
+    _detailsTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, height/1.55, width, height/6.7)];
     [_detailsTextView.layer setCornerRadius:5];
     [_detailsTextView.layer setBorderWidth:0.4];
     _detailsTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     
+    [_detailsTextView setFont:[UIFont fontWithName:@"Arial" size:17]];
+    
     [self.view addSubview:_detailsTextView];
     
-    UILabel *detailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(_detailsTextView.frame.origin.x, 400, width, 20)];
+    UILabel *detailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(_detailsTextView.frame.origin.x, height/1.65, width, height/33.3)];
     detailsLabel.text = @"Details:";
     
     [self.view addSubview:detailsLabel];
+    [detailsLabel release];
     
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
     
@@ -85,24 +155,30 @@
         _detailsTextView.text = _task.details;
         
         [_selectedFlagView removeFromSuperview];
-        _selectedFlagView = [[_task.flag.class alloc] initWithFrame:_selectedFlagView.frame];
+        self.selectedFlagView = [[_task.flag.class alloc] initWithFrame:_selectedFlagView.frame];
         [self.view addSubview:_selectedFlagView];
     } else {
         self.title = @"Add task";
     }
-
+    
 }
 
 -(void)flagsInit {
-    CGFloat offset = 20;
-    CGFloat size = (self.view.bounds.size.width - 5 * offset) / 4;
+    CGFloat offsetX = self.view.bounds.size.width/15;
+    CGFloat size = (self.view.bounds.size.width - 5 * offsetX) / 4;
+    CGFloat offsetY = self.view.bounds.size.height/1.2;
     
-    HomeFlag *homeFlag = [[HomeFlag alloc] initWithFrame:CGRectMake(offset, 550, size, size)];
-    WorkFlag *workFlag = [[WorkFlag alloc] initWithFrame:CGRectMake(size + 2 * offset, 550, size, size)];
-    FamilyFlag *familyFlag = [[FamilyFlag alloc] initWithFrame:CGRectMake(2 * size + 3 * offset, 550, size, size)];
-    ShopFlag *shopFlag = [[ShopFlag alloc] initWithFrame:CGRectMake(3 * size + 4 * offset, 550, size, size)];
+    HomeFlag *homeFlag = [[HomeFlag alloc] initWithFrame:CGRectMake(offsetX, offsetY, size, size)];
+    WorkFlag *workFlag = [[WorkFlag alloc] initWithFrame:CGRectMake(size + 2 * offsetX, offsetY, size, size)];
+    FamilyFlag *familyFlag = [[FamilyFlag alloc] initWithFrame:CGRectMake(2 * size + 3 * offsetX, offsetY, size, size)];
+    ShopFlag *shopFlag = [[ShopFlag alloc] initWithFrame:CGRectMake(3 * size + 4 * offsetX, offsetY, size, size)];
     
     _flags = [[NSArray alloc] initWithObjects:homeFlag, workFlag, familyFlag, shopFlag, nil];
+    
+    [homeFlag release];
+    [workFlag release];
+    [familyFlag release];
+    [shopFlag release];
     
     for (UIView *flag in _flags) {
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(flagTapped:)];
@@ -122,7 +198,7 @@
     [tapGesture.view.layer setBorderWidth:3];
     
     [_selectedFlagView removeFromSuperview];
-    _selectedFlagView = [[tapGesture.view.class alloc] initWithFrame:_selectedFlagView.frame];
+    self.selectedFlagView = [[tapGesture.view.class alloc] initWithFrame:_selectedFlagView.frame];
     [self.view addSubview:_selectedFlagView];
 }
 
@@ -162,6 +238,7 @@
     
     [_task release];
     [_flags release];
+    [_scrollView release];
     
     [super dealloc];
 }

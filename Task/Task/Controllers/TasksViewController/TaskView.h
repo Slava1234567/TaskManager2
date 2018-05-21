@@ -13,7 +13,8 @@
 
 @required
 
--(void)taskViewDidRemoveFromSuperview: (TaskView*) taskView;
+-(void)editTaskAtIndex: (NSInteger) index;
+-(void)deleteTaskAtIndex: (NSInteger) index;
 
 @end
 
@@ -27,7 +28,6 @@
 @property (nonatomic, weak) id<TaskViewDelegate> delegate;
 
 - (void)addSubViews;
-- (void)setValueInSubviewsTitle:(NSString*)title description:(NSString*)description detail:(NSString*)detail; //imageView:(UIImageView*)imageView;
--(void)updateViewWithTask:(Task*) task;
+- (void)updateViewWithTask:(Task*) task;
 
 @end

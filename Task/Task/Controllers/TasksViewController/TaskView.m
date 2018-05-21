@@ -23,32 +23,21 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        CGFloat positionX = frame.size.width / 3;
-        CGFloat offSetPositionY = frame.size.height / 3;
-        CGFloat border = 10.0f;
         
-        _title = [[UILabel alloc] initWithFrame:CGRectMake(positionX ,
-                                                           self.bounds.origin.y + border ,
-                                                           positionX * 2 - border,
-                                                           offSetPositionY - (border * 2))];
-        //_title.backgroundColor = [UIColor grayColor];
-        _descriptions = [[UILabel alloc] initWithFrame:CGRectMake(positionX,
-                                                                  offSetPositionY,
-                                                                  positionX * 2 - border,
-                                                                  offSetPositionY - border)];
-        //_descriptions.backgroundColor = [UIColor grayColor];
-        _detail = [[UILabel alloc] initWithFrame:CGRectMake(positionX,
-                                                            offSetPositionY * 2,
-                                                            positionX * 2 - border,
-                                                            offSetPositionY - border)];
-        //_detail.backgroundColor = [UIColor grayColor];
-//        _flagView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.origin.x + border,
-//                                                                   self.bounds.origin.y + border,
-//                                                                   offSetPositionY * 3 - (border * 2),
-//                                                                   offSetPositionY * 3 - (border * 2))];
-        //_flagView.backgroundColor = [UIColor lightGrayColor];
-        //_flagView.layer.cornerRadius = 10;
-        //_flagView.layer.masksToBounds = YES;
+        self.backgroundColor = UIColor.whiteColor;
+        
+        CGFloat border = self.frame.size.width/30;
+        
+        _title = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.height * 0.7 + 2 * border,
+                                                           self.bounds.origin.y + border,
+                                                           self.bounds.size.width - (self.frame.size.height * 0.7 + 3 * border),
+                                                           20)];
+        
+        _descriptions = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.height * 0.7 + 2 * border,
+                                                                  self.bounds.size.height - 40,
+                                                                  self.bounds.size.width - (self.frame.size.height * 0.7 + 3 * border),
+                                                                  20)];
+        _descriptions.adjustsFontSizeToFitWidth = YES;
         
         CALayer *layer = self.layer;
         [layer setBorderWidth:0.4];
@@ -59,7 +48,7 @@
         
         _deleteLabel = [[UILabel alloc] init];
         _deleteLabel.text = @"Delete";
-        _deleteLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:25];
+        _deleteLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
         _deleteLabel.textColor = UIColor.whiteColor;
         _deleteLabel.textAlignment = NSTextAlignmentCenter;
         
@@ -80,29 +69,28 @@
     [self addSubview:self.flagView];
 }
 
-- (void)setValueInSubviewsTitle:(NSString*)title description:(NSString*)description detail:(NSString*)detail{ //imageView:(UIImageView*)imageView {
-    
-    self.title.text = title;
-    self.descriptions.text = description;
-    self.detail.text = detail;
-   // self.imageView = imageView;
-}
-
 -(void)updateViewWithTask:(Task*) task {
     self.title.text = task.title;
     self.descriptions.text = task.descript;
     self.detail.text = task.details;
     self.flagView = task.flag;
     
-    CGFloat offSetPositionY = self.frame.size.height / 3;
-    CGFloat border = 10.0f;
+    CGFloat border = self.frame.size.width/30;
     
-    [_flagView setFrame:CGRectMake(self.bounds.origin.x + border,self.bounds.origin.y + border, offSetPositionY * 3 - (border * 2), offSetPositionY * 3 - (border * 2))];
+    CGFloat flagWidth = self.frame.size.height * 0.7;
+    
+    [_flagView setFrame:CGRectMake(self.bounds.origin.x + border,self.bounds.size.height/2 - flagWidth/2, flagWidth, flagWidth)];
+    _flagView.layer.cornerRadius = _flagView.bounds.size.width/2;
+    _flagView.layer.masksToBounds = YES;
+    
     [self addSubview:_flagView];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     _locationBounds = [[touches anyObject] locationInView:self];
+    if (touches.anyObject.tapCount == 2) {
+        [_delegate editTaskAtIndex:self.tag];
+    }
 }
 
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -116,8 +104,7 @@
     [_deleteLabel setFrame:CGRectMake(_deleteView.bounds.size.width/2 - labelWidth/2, _deleteView.bounds.size.height/2 - 10, labelWidth, 20)];
     
     if (locationFrame.x - _locationBounds.x + self.bounds.size.width < self.bounds.size.width/4) {
-        [self removeFromSuperview];
-        [_delegate taskViewDidRemoveFromSuperview: self];
+        [_delegate deleteTaskAtIndex:self.tag];
     }
     
 }
@@ -127,8 +114,15 @@
     [_deleteView setFrame:CGRectMake(self.bounds.size.width, self.frame.origin.y, 0, self.bounds.size.height)];
 }
 
--(void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self setFrame:CGRectMake(0, self.frame.origin.y, self.bounds.size.width, self.bounds.size.height)];
+-(void)dealloc {
+    [_title release];
+    [_detail release];
+    [_descriptions release];
+    [_deleteView release];
+    [_deleteLabel release];
+    [_flagView release];
+    
+    [super dealloc];
 }
 
 @end
