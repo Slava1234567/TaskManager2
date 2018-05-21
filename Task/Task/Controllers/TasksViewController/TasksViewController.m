@@ -11,7 +11,6 @@
 #import "InfoViewController.h"
 #import "TaskView.h"
 #import "DeleteView.h"
-
 #import "Task.h"
 
 @interface TasksViewController () <AddTaskViewControllerDelegate, TaskViewDelegate>
@@ -101,20 +100,10 @@
     
     TaskView *taskView = [[TaskView alloc] initWithFrame:frame];
     
-  
     taskView.tag = _taskViewArray.count;
     [taskView updateViewWithTask:task];
     
     taskView.delegate = self;
-    
-    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
-    doubleTapGesture.numberOfTapsRequired = 2;
-    [taskView addGestureRecognizer:doubleTapGesture];
-    [doubleTapGesture release];
-    
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-    [taskView addGestureRecognizer:panGesture];
-    [panGesture release];
     
     [_taskViewArray addObject:taskView];
     
@@ -124,42 +113,9 @@
     [taskView release];
 }
 
-- (void) handlePan:(UIPanGestureRecognizer*)panGestore {
-    
-    if (panGestore.state == UIGestureRecognizerStateBegan ||
-        panGestore.state == UIGestureRecognizerStateChanged ||
-        panGestore.state == UIGestureRecognizerStateEnded) {
-
-        [self.deleteView removeFromSuperview];
-        self.deleteView = [[DeleteView redrawDeleteViewWithGestoreSuperView:panGestore] init];
-        self.deleteView.tag = panGestore.view.tag;
-        UITapGestureRecognizer *tapDeleteGestore = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapDelete:)];
-        
-        [self.deleteView addGestureRecognizer:tapDeleteGestore];
-
-        TaskView *taskView = [self.taskViewArray[panGestore.view.tag] retain];
-        [taskView addSubview:self.deleteView];
-
-        [self.deleteView release];
-        [taskView release];
-
-    }
-}
-
-- (void) handleTapDelete:(UITapGestureRecognizer*) tapDeleteGestore {
-    
-    [_taskArray removeObjectAtIndex:tapDeleteGestore.view.tag];
-    [_taskViewArray[tapDeleteGestore.view.tag] removeFromSuperview];
-    [_taskViewArray removeObjectAtIndex:tapDeleteGestore.view.tag];
-    
-    [self reloadTasksFromRow:tapDeleteGestore.view.tag];
-
-}
-
 -(void)updateTask:(Task *) task {
     [_taskViewArray[task.tag] updateViewWithTask:task];
 }
-
 
 // MARK: - AddTaskViewControllerDelegate protocol required methods
 
