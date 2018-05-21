@@ -40,7 +40,7 @@
     
     [self.view addSubview:ourTeam];
     
-    UILabel *epam = [[UILabel alloc]  initWithFrame: CGRectMake(0, self.view.bounds.size.height - 20, self.view.bounds.size.width, 20)];
+    UILabel *epam = [[[UILabel alloc]  initWithFrame: CGRectMake(0, self.view.bounds.size.height - 20, self.view.bounds.size.width, 20)] autorelease];
     epam.text = @"© Epam iOS Training Courses 2018";
     epam.textAlignment = NSTextAlignmentCenter;
     
