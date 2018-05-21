@@ -30,7 +30,22 @@
     titleLabel.textAlignment = NSTextAlignmentCenter;
     
     [self.view addSubview:titleLabel];
+//////////////////////////////////////Start////////////////////////////////////////////////////
+    UILabel *ourTeam = [[[UILabel alloc] initWithFrame:CGRectMake(10, self.view.bounds.size.height/2, self.view.bounds.size.width - 20, 120 )] autorelease];
+    ourTeam.numberOfLines = 4;
+    ourTeam.text = @"Our team:\nAleksei Piatyha\nViachaslau Shyla\nPavel Koka";
+    ourTeam.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:25];
+    ourTeam.textAlignment = NSTextAlignmentLeft;
     
+    [self.view addSubview:ourTeam];
+    
+    UILabel *epam = [[[UILabel alloc]  initWithFrame: CGRectMake(0, self.view.bounds.size.height - 20, self.view.bounds.size.width, 20)] autorelease];
+    epam.text = @"© Epam iOS Training Courses 2018";
+    epam.textAlignment = NSTextAlignmentCenter;
+    
+    [self.view addSubview:ourTeam];
+    [self.view addSubview:epam];
+//////////////////////////////////////End////////////////////////////////////////////////////
     IconView *iconView = [[IconView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, self.view.bounds.origin.y + height/2, width, height)];
     
     [self.view addSubview:iconView];
