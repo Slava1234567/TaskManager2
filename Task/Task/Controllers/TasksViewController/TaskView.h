@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Task;
+@class Task, TaskView;
+
+@protocol TaskViewDelegate <NSObject>
+
+@required
+
+-(void)editTaskAtIndex: (NSInteger) index;
+-(void)deleteTaskAtIndex: (NSInteger) index;
+
+@end
 
 @interface TaskView : UIView
 
@@ -16,8 +25,9 @@
 @property (nonatomic, strong) UILabel* detail;
 @property (nonatomic, strong) UIView* flagView;
 
+@property (nonatomic, weak) id<TaskViewDelegate> delegate;
+
 - (void)addSubViews;
-- (void)setValueInSubviewsTitle:(NSString*)title description:(NSString*)description detail:(NSString*)detail; //imageView:(UIImageView*)imageView;
--(void)updateViewWithTask:(Task*) task;
+- (void)updateViewWithTask:(Task*) task;
 
 @end

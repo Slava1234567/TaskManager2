@@ -31,8 +31,6 @@
     
     CGFloat multiplier = self.bounds.size.width/15;
     
-    NSLog(@"multiplier = %f", multiplier);
-    
     CGContextMoveToPoint(context, self.bounds.size.width/2 + 0.1 * multiplier, self.bounds.size.height/2 + 3 * multiplier);
     CGContextAddCurveToPoint(context, self.bounds.size.width/2 - 5 * multiplier, self.bounds.size.height/2 - 1.5 * multiplier, self.bounds.size.width/2 - 2 * multiplier, self.bounds.size.height/2 - 4 * multiplier, self.bounds.size.width/2 + 0.1 * multiplier, self.bounds.size.height/2 - 2 * multiplier);
     CGContextStrokePath(context);
