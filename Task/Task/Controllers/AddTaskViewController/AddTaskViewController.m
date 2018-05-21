@@ -16,6 +16,7 @@
 
 @interface AddTaskViewController ()
 
+@property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic, strong) UITextField *titleTextField;
 @property (nonatomic, strong) UITextView *descriptionTextView;
 @property (nonatomic, strong) UITextView *detailsTextView;
@@ -27,11 +28,72 @@
 
 @implementation AddTaskViewController
 
+////////////////////////////////////////Bahaviour of keyboard////////////////////////////////////////////////////////
+- (void)loadView {////self.view as scrollView
+    CGRect fullScreenRect = [[UIScreen mainScreen] bounds];
+    _scrollView = [[UIScrollView alloc] initWithFrame:fullScreenRect];
+    _scrollView.contentSize = CGSizeMake(320,758);
+    self.view = _scrollView;
+}
+
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    self.scrollView.contentInset = contentInsets;
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+    
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    
+//    if (_detailsTextView.isFirstResponder) {
+        [self.scrollView scrollRectToVisible:_detailsTextView.frame animated:YES];
+ //   }
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.scrollView.contentInset = contentInsets;
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void) hideKeyboard {
+    [_titleTextField resignFirstResponder];
+    [_descriptionTextView resignFirstResponder];
+    [_detailsTextView resignFirstResponder];
+}
+
+//////////////////////////////////////END//////////////////////////////////////////////////////////
+
+
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
+    //////////////////////////////////////gestureRecognizer//////////////////////////////////////////////////////////
+    UITapGestureRecognizer *gestureRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)] autorelease];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    [self registerForKeyboardNotifications];
+    //////////////////////////////////////////END//////////////////////////////////////////////////////
     self.view.backgroundColor = UIColor.whiteColor;
-    
     CGFloat width = self.view.bounds.size.width * 0.8;
     
     _selectedFlagView = [[DefaultFlag alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - 40, 90, 80, 80)];
@@ -46,11 +108,13 @@
     titleLabel.text = @"Title:";
     
     [self.view addSubview:titleLabel];
-
+    
     _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2 - width/2, 270, width, 100)];
     [_descriptionTextView.layer setCornerRadius:5];
     [_descriptionTextView.layer setBorderWidth:0.3];
     _descriptionTextView.layer.borderColor=[[UIColor lightGrayColor] CGColor];
+    
+    [_descriptionTextView setFont:[UIFont fontWithName:@"Arial" size:17]];/// _descriptionTextView font size changed
     
     [self.view addSubview:_descriptionTextView];
     
@@ -63,6 +127,8 @@
     [_detailsTextView.layer setCornerRadius:5];
     [_detailsTextView.layer setBorderWidth:0.4];
     _detailsTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    
+    [_detailsTextView setFont:[UIFont fontWithName:@"Arial" size:17]];//_detailsTextView font size changed
     
     [self.view addSubview:_detailsTextView];
     
@@ -90,7 +156,7 @@
     } else {
         self.title = @"Add task";
     }
-
+    
 }
 
 -(void)flagsInit {
@@ -162,6 +228,7 @@
     
     [_task release];
     [_flags release];
+    [_scrollView release];//added
     
     [super dealloc];
 }
