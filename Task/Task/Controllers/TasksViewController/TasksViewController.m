@@ -16,6 +16,10 @@
 
 @interface TasksViewController () <AddTaskViewControllerDelegate>
 
+//////////////////////////////////////Start////////////////////////////////////////////////////
+@property(nonatomic, readonly) UILabel *firstLabelForEmptyScreen;
+////////////////////////////////////////End////////////////////////////////////////////////////
+
 @property (nonatomic, strong) NSMutableArray<Task *> *taskArray;
 @property (nonatomic, strong) NSMutableArray<TaskView *> *taskViewArray;
 @property (nonatomic, retain) DeleteView* deleteView;
@@ -24,6 +28,17 @@
 @end
 
 @implementation TasksViewController
+
+//////////////////////////////////////Start////////////////////////////////////////////////////
+
+-(void) viewWillAppear:(BOOL)animated{
+    if (_taskViewArray.count != 0) {
+        _firstLabelForEmptyScreen.hidden = YES;
+    } else{
+        _firstLabelForEmptyScreen.hidden = NO;
+    }
+}
+////////////////////////////////////////End////////////////////////////////////////////////////
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,6 +60,16 @@
     [leftButton release];
     
     self.scrollView = [[[UIScrollView alloc] initWithFrame:self.view.frame] autorelease];
+    
+//////////////////////////////////////Start////////////////////////////////////////////////////
+    _firstLabelForEmptyScreen = [[UILabel alloc] initWithFrame:CGRectMake( 0, 0, self.scrollView.bounds.size.width,self.scrollView.bounds.size.height/6)];
+    _firstLabelForEmptyScreen.text = @"Add your first task";
+    _firstLabelForEmptyScreen.textAlignment = NSTextAlignmentCenter;
+
+     [self.scrollView addSubview:_firstLabelForEmptyScreen];
+//////////////////////////////////////End//////////////////////////////////////////////////////
+
+    
     [self.view addSubview:self.scrollView];
 }
 
