@@ -33,7 +33,8 @@
 
 + (DeleteView*)redrawDeleteViewWithGestoreSuperView:(UIPanGestureRecognizer*)panGestore {
     
-    DeleteView* deleteView = [[DeleteView alloc] init];
+    DeleteView* deleteView = [[[DeleteView alloc] init] autorelease];
+
     
     CGFloat widht = 0;
     CGFloat positionX = CGRectGetMaxX(panGestore.view.bounds);
